@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano Tutor - Scale & Progressioni V11</title> <!-- Titolo aggiornato -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="main-content-wrapper">
+        <h1>Visualizzatore Piano Tutor V11 (Modalità Scale)</h1> <!-- Titolo aggiornato -->
+
+        <div id="midi-controls">
+            <label for="midi-input-select">Input MIDI:</label>
+            <select id="midi-input-select">
+                <option value="">-- Nessun Dispositivo --</option>
+            </select>
+            <span id="midi-status">Checking MIDI...</span>
+            <div class="tempo-control">
+                 <label for="tempo-slider">Velocità/Tempo (BPM):</label>
+                 <input type="range" id="tempo-slider" min="40" max="200" value="100">
+                 <span id="tempo-value">100</span> BPM
+            </div>
+        </div>
+
+         <!-- Controlli per le Scale (CON SELETTORE MODALITÀ) -->
+         <div id="scale-controls" class="control-group">
+             <label for="scale-select">Scala:</label>
+             <select id="scale-select">
+                 <option value="-1">-- Seleziona Scala --</option>
+             </select>
+              <label for="scale-tonic-select">Tonalità:</label>
+              <select id="scale-tonic-select">
+                   <option value="C4">C</option>
+              </select>
+              <!-- Selettore Modalità Scala -->
+              <label for="scale-mode-select">Modalità:</label>
+              <select id="scale-mode-select">
+                    <option value="alternating" selected>Alterna Ottave</option>
+                    <option value="asc-desc">Ascendente/Discendente</option>
+              </select>
+             <button id="start-scale-btn" disabled>Avvia Scala</button>
+             <button id="stop-scale-btn" disabled>Stop Scala</button>
+         </div>
+
+        <!-- Controlli per le Progressioni -->
+        <div id="progression-controls" class="control-group">
+             <label for="progression-select">Giro Armonico:</label>
+             <select id="progression-select">
+                 <option value="-1">-- Seleziona Progressione --</option>
+             </select>
+             <button id="start-progression-btn" disabled>Avvia Progressione</button>
+             <button id="stop-progression-btn" disabled>Stop Progressione</button>
+             <div id="score-counter" style="margin-left: 20px; font-weight: bold;">
+                 Corretti: <span id="correct-count">0</span>
+             </div>
+         </div>
+
+
+        <div id="staff-container">
+            <!-- Immagini per le chiavi -->
+            <img src="img/treble_clef.svg" alt="Chiave di Violino" class="clef-img" id="treble-clef-img">
+            <img src="img/bass_clef.svg" alt="Chiave di Basso" class="clef-img" id="bass-clef-img">
+
+            <svg id="music-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 900 300">
+                <!-- Linee Pentagramma -->
+                <line x1="0" y1="30" x2="100%" y2="30" stroke="#000" stroke-width="1.5"/> <line x1="0" y1="45" x2="100%" y2="45" stroke="#000" stroke-width="1.5"/> <line x1="0" y1="60" x2="100%" y2="60" stroke="#000" stroke-width="1.5"/> <line x1="0" y1="75" x2="100%" y2="75" stroke="#000" stroke-width="1.5"/> <line x1="0" y1="90" x2="100%" y2="90" stroke="#000" stroke-width="1.5"/>
+                <line x1="0" y1="170" x2="100%" y2="170" stroke="#000" stroke-width="1.5"/> <line x1="0" y1="185" x2="100%" y2="185" stroke="#000" stroke-width="1.5"/> <line x1="0" y1="200" x2="100%" y2="200" stroke="#000" stroke-width="1.5"/> <line x1="0" y1="215" x2="100%" y2="215" stroke="#000" stroke-width="1.5"/> <line x1="0" y1="230" x2="100%" y2="230" stroke="#000" stroke-width="1.5"/>
+                <g id="notes-area"></g>
+            </svg>
+        </div>
+
+        <div class="piano-container">
+            <!-- Tastiera (invariata) -->
+            <div class="piano" id="piano-keys">
+                 <div class="key white" data-midi="36" data-note="C2">C2</div> <div class="key white" data-midi="38" data-note="D2">D2</div> <div class="key white" data-midi="40" data-note="E2">E2</div> <div class="key white" data-midi="41" data-note="F2">F2</div> <div class="key white" data-midi="43" data-note="G2">G2</div> <div class="key white" data-midi="45" data-note="A2">A2</div> <div class="key white" data-midi="47" data-note="B2">B2</div>
+                <div class="key white" data-midi="48" data-note="C3">C3</div> <div class="key white" data-midi="50" data-note="D3">D3</div> <div class="key white" data-midi="52" data-note="E3">E3</div> <div class="key white" data-midi="53" data-note="F3">F3</div> <div class="key white" data-midi="55" data-note="G3">G3</div> <div class="key white" data-midi="57" data-note="A3">A3</div> <div class="key white" data-midi="59" data-note="B3">B3</div>
+                <div class="key white" data-midi="60" data-note="C4">C4</div> <div class="key white" data-midi="62" data-note="D4">D4</div> <div class="key white" data-midi="64" data-note="E4">E4</div> <div class="key white" data-midi="65" data-note="F4">F4</div> <div class="key white" data-midi="67" data-note="G4">G4</div> <div class="key white" data-midi="69" data-note="A4">A4</div> <div class="key white" data-midi="71" data-note="B4">B4</div>
+                <div class="key white" data-midi="72" data-note="C5">C5</div> <div class="key white" data-midi="74" data-note="D5">D5</div> <div class="key white" data-midi="76" data-note="E5">E5</div> <div class="key white" data-midi="77" data-note="F5">F5</div> <div class="key white" data-midi="79" data-note="G5">G5</div> <div class="key white" data-midi="81" data-note="A5">A5</div> <div class="key white" data-midi="83" data-note="B5">B5</div>
+                <div class="key white" data-midi="84" data-note="C6">C6</div>
+                <div class="key black" data-midi="37" data-note="C#2" style="left: calc(1 * 45px - 13px);"></div> <div class="key black" data-midi="39" data-note="D#2" style="left: calc(2 * 45px - 13px);"></div> <div class="key black" data-midi="42" data-note="F#2" style="left: calc(4 * 45px - 13px);"></div> <div class="key black" data-midi="44" data-note="G#2" style="left: calc(5 * 45px - 13px);"></div> <div class="key black" data-midi="46" data-note="A#2" style="left: calc(6 * 45px - 13px);"></div>
+                <div class="key black" data-midi="49" data-note="C#3" style="left: calc(8 * 45px - 13px);"></div> <div class="key black" data-midi="51" data-note="D#3" style="left: calc(9 * 45px - 13px);"></div> <div class="key black" data-midi="54" data-note="F#3" style="left: calc(11 * 45px - 13px);"></div> <div class="key black" data-midi="56" data-note="G#3" style="left: calc(12 * 45px - 13px);"></div> <div class="key black" data-midi="58" data-note="A#3" style="left: calc(13 * 45px - 13px);"></div>
+                <div class="key black" data-midi="61" data-note="C#4" style="left: calc(15 * 45px - 13px);"></div> <div class="key black" data-midi="63" data-note="D#4" style="left: calc(16 * 45px - 13px);"></div> <div class="key black" data-midi="66" data-note="F#4" style="left: calc(18 * 45px - 13px);"></div> <div class="key black" data-midi="68" data-note="G#4" style="left: calc(19 * 45px - 13px);"></div> <div class="key black" data-midi="70" data-note="A#4" style="left: calc(20 * 45px - 13px);"></div>
+                <div class="key black" data-midi="73" data-note="C#5" style="left: calc(22 * 45px - 13px);"></div> <div class="key black" data-midi="75" data-note="D#5" style="left: calc(23 * 45px - 13px);"></div> <div class="key black" data-midi="78" data-note="F#5" style="left: calc(25 * 45px - 13px);"></div> <div class="key black" data-midi="80" data-note="G#5" style="left: calc(26 * 45px - 13px);"></div> <div class="key black" data-midi="82" data-note="A#5" style="left: calc(27 * 45px - 13px);"></div>
+            </div>
+        </div>
+
+    </div><!-- /main-content-wrapper -->
+
+    <!-- Carica prima i dati -->
+    <script src="scales.js"></script>
+    <script src="progressions.js"></script>
+    <!-- Poi carica lo script principale -->
+    <script src="script.js"></script>
+</body>
+</html>
