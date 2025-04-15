@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piano Tutor - Scale & Progressioni V11</title> <!-- Titolo aggiornato -->
+    <title>Piano Tutor - Scale, Progressioni & Accordi</title> <!-- Titolo aggiornato -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="main-content-wrapper">
-        <h1>Visualizzatore Piano Tutor V11 (Modalità Scale)</h1> <!-- Titolo aggiornato -->
+        <h1>Visualizzatore Piano Tutor V12 (Accordi Complessi)</h1> <!-- Titolo aggiornato -->
 
         <div id="midi-controls">
             <label for="midi-input-select">Input MIDI:</label>
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-         <!-- Controlli per le Scale (CON SELETTORE MODALITÀ) -->
+         <!-- Controlli per le Scale -->
          <div id="scale-controls" class="control-group">
              <label for="scale-select">Scala:</label>
              <select id="scale-select">
@@ -31,10 +31,9 @@
              </select>
               <label for="scale-tonic-select">Tonalità:</label>
               <select id="scale-tonic-select">
-                   <option value="C4">C</option>
+                   <!-- Opzioni popolate da JS -->
               </select>
-              <!-- Selettore Modalità Scala -->
-              <label for="scale-mode-select">Modalità:</label>
+              <label for="scale-mode-select">Modalità Scala:</label>
               <select id="scale-mode-select">
                     <option value="alternating" selected>Alterna Ottave</option>
                     <option value="asc-desc">Ascendente/Discendente</option>
@@ -51,9 +50,19 @@
              </select>
              <button id="start-progression-btn" disabled>Avvia Progressione</button>
              <button id="stop-progression-btn" disabled>Stop Progressione</button>
-             <div id="score-counter" style="margin-left: 20px; font-weight: bold;">
-                 Corretti: <span id="correct-count">0</span>
-             </div>
+         </div>
+
+         <!-- NUOVO: Controlli per Accordi Complessi -->
+         <div id="complex-chord-controls" class="control-group">
+             <!-- Usa lo stesso selettore di tonalità delle scale -->
+             <label>Accordi Complessi (Tonalità sopra):</label>
+             <button id="start-complex-chord-btn">Avvia Accordi Complessi</button>
+             <button id="stop-complex-chord-btn" disabled>Stop Accordi Complessi</button>
+         </div>
+
+         <!-- Contatore Punteggio (spostato per visibilità) -->
+         <div id="score-counter" style="margin-top: 15px; font-weight: bold; text-align: center; font-size: 1.2em;">
+             Corretti: <span id="correct-count">0</span>
          </div>
 
 
@@ -89,7 +98,8 @@
 
     <!-- Carica prima i dati -->
     <script src="scales.js"></script>
-    <script src="progressions.js"></script>
+    <script src="progressions.js"></script> <!-- Contiene buildChord aggiornato -->
+    <script src="complexChords.js"></script> <!-- NUOVO: Carica i dati degli accordi complessi -->
     <!-- Poi carica lo script principale -->
     <script src="script.js"></script>
 </body>
